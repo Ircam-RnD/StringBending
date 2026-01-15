@@ -37,6 +37,8 @@ build/
 xcode/
 externals/
 
+.venv
+
 *.pdf
 *.wav
 .vscode
