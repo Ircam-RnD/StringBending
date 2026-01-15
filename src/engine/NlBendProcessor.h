@@ -15,20 +15,22 @@ enum NLMODE {
     LINEAR,
     MODEWISE,
     SUM
+    // NEAREST
 };
 
 template <class T>
 class NlBendProcessor {
     private:
+        using Vec = Eigen::Array<T, -1, 1>;
         // Numerical epsilon value
         constexpr static T NUM_EPS{1e-12};
         // Number of modes
         int Nmodes{1};
 
         // Linear part: system "matrices" (diagonal)
-        Eigen::Vector<T, -1> M, K, R;
+        Vec M, K, R;
         // Higer level modal parameters
-        Eigen::Vector<T, -1> Amps, Omega, Decays;
+        Vec Amps, Omega, Decays;
 
         // Nonlinear part: function parametrization: 
         // How can we do that?
@@ -42,17 +44,17 @@ class NlBendProcessor {
         T lambda0{0};
 
         // System state (modal coordinates)
-        Eigen::Vector<T, -1> qlast, qnow, qnext;
+        Vec qlast, qnow, qnext;
         T r;
 
         // Intermediate vectors
-        Eigen::Vector<T, -1> RHS, LHS;
+        Vec RHS, LHS;
 
         // Displacement (spatial coordinates)
-        Eigen::Vector<T, -1> qspat;
+        Vec qspat;
 
         // Nonlinear function evaluation
-        Eigen::Vector<T, -1> g, dqV;
+        Vec g, dqV;
         T V;
 
         // Drift variable
@@ -72,13 +74,13 @@ class NlBendProcessor {
 
         void computeV();
 
-        void process(Eigen::Ref<const Eigen::Vector<T, -1>> input, Eigen::Ref<Eigen::Vector<T, -1>> out, T &epsilonOut);
+        void process(Eigen::Ref<const Vec> input, Eigen::Ref<Vec> out, T &epsilonOut);
 
         // Higher level modal parameters
-        void setLinearParameters (Eigen::Vector<T, -1> Amps, Eigen::Vector<T, -1> Omega, Eigen::Vector<T, -1> Decays);
-        void setAmps (Eigen::Vector<T, -1> Amps);
-        void setFreqs (Eigen::Vector<T, -1> Freqs);
-        void setDecays (Eigen::Vector<T, -1> Decays);
+        void setLinearParameters (Vec Amps, Vec Omega, Vec Decays);
+        void setAmps (Vec Amps);
+        void setFreqs (Vec Freqs);
+        void setDecays (Vec Decays);
     
         void setNlMode (NLMODE mode) {this->nlMode = mode;};
 

@@ -4,7 +4,7 @@
 #include <Eigen/Dense>
 
 template <typename Derived, typename ftype>
-auto ClipEigen(const Eigen::MatrixBase<Derived>& array,
+auto ClipEigen(const Eigen::ArrayBase<Derived>& array,
           const ftype& min,
           const ftype& max)
 {
@@ -12,8 +12,8 @@ auto ClipEigen(const Eigen::MatrixBase<Derived>& array,
 }
 
 template <typename Derived>
-auto SafeSetEigen(Eigen::MatrixBase<Derived>& array,
-          const Eigen::MatrixBase<Derived>& array2)
+auto SafeSetEigen(Eigen::ArrayBase<Derived>& array,
+          const Eigen::ArrayBase<Derived>& array2)
 {
   int minDim = std::min(array.size(), array2.size());
   array.head(minDim) = array2.head(minDim);
