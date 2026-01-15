@@ -61,7 +61,7 @@ public:
   // Nonlinear mode
   attribute<symbol> NlMode { this, "NlMode", "LINEAR", range {"LINEAR", "MODEWISE", "SUM"}};
 
-  attribute<number, threadsafe::no, limit::clamp> lambda0 { this, "lambda0", 1,
+  attribute<number, threadsafe::no, limit::clamp> lambda0 { this, "lambda0", 1000,
 	  range { 1, 10000 },
     setter { MIN_FUNCTION {
       if (procInitialized){
@@ -77,6 +77,7 @@ public:
       // Processor initialization
       proc->ReinitDsp(sr);
       proc = std::make_shared<NlBendProcessor<double>>(sr, Nmodes);
+      proc->setLambda0(lambda0);
       // Set Nl Mode
       proc->setNlMode(getNlModeFromString(std::string_view(NlMode.get())));
       // Reset linear parameters
