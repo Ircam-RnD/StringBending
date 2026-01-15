@@ -19,6 +19,7 @@
 
 ## 3-Theory
 - [ ] Fix modal amplitudes, or provide a control parameter mapping to allow for easy setting of modal amplitudes in dB.
+- [ ] Do we want to listen to displacement or velocity or other? Maybe set to displacement, to easily handle nonlinearity levels defined from it.
 - [ ] Cleanly write the nonlinearity corresponding to the string (KC and geometric).
 - [ ] Re-write the scheme cleanly, with the stability condition.  
 - [ ] Design a method for modulation of linear parameters.
